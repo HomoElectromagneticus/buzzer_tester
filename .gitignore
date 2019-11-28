@@ -1,0 +1,10 @@
+build/*
+debug/*
+dist/*
+nbprojects/private/*
+nbprojects/Makefile-*
+nbprojects/Package-*
+/nbproject/private/
+scratchpad.txt
+*.ods
+
