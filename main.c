@@ -38,16 +38,6 @@
 
 #include "buzzer_tester.h"
 
-unsigned int button_state_integral = 0;
-unsigned int button_debounce_threshold = 3;
-unsigned int button_state_integral_max = 5;
-unsigned char button_pushed_flag = 0;
-unsigned int display_update_scaler = 0;
-unsigned int seconds_scaler = 0;         
-unsigned int seconds_divisor = 25;     //set to overflow every tenth of a second
-unsigned int seconds_clock = 0;
-unsigned char PC_shadow = 0;      //shadow reg for PORTC to avoid R-M-W issues
-
 unsigned int adc_result = 0;        //this is where the ADC value will be stored
 char out_state = 0;
 int tmp = 0;
@@ -69,27 +59,6 @@ int ADC_Convert(void){
     ADCON0bits.GO_nDONE = 1;               //start ADC
     while (ADCON0bits.GO_nDONE == 1);      //wait for ADC to finish
     return (ADRESL + (ADRESH *256));
-}
-
-void pwm_init(void){
-    // starts the PWM output
-    // PWM period = [PR2 + 1] * 4 * Tosc * (Timer2 prescale value)
-    // PWM period = [255 + 1] * 4 * (1 / 4MHz ) * (1/4)
-    // PWM period = 
-    // PWM duty cycle = CCPR2L:CCP2CON<5:4> / (4 * (PR2 +1)
-    // PWM duty cycle = 0b0011111100 / (4 * ( 255 + 1 ))
-    // PWM duty cycle = 50%
-    
-    TRISCbits.TRISC3 = 1;       //disabling the CCP2 output driver (on pin 7)
-    CCP2CONbits.CCP2M = 0b1100; //setting CCP2 for PWM mode
-    CCP2CONbits.P2M = 0b00;     //single output, P4A modulated only
-    CCP2CONbits.DC2B = 0b11;    //least significant bits for duty cycle
-    CCPR4L = 0b1111111111;        //setting the MSBs of the PWM duty cycle
-    
-    //enable PWM after a new cycle has started
-    //while (PIR1bits.TMR2IF == 0);//wait for timer 2 to overflow
-
-    TRISCbits.TRISC3 = 0;       //enable the CCP1 output driver
 }
 
 void timer2_init(void) {

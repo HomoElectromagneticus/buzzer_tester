@@ -38,12 +38,12 @@
 // TODO Insert C++ class definitions if appropriate
 
 // TODO Insert declarations
-void update_display_values(unsigned int);
-void tmr2_interrupt_handler(void);
+void adc_init(void);
+int ADC_Convert(void);
 void timer2_init(void);
 void timer4_init(void);
-void adc_init(void);
-void pwm_init(void);
+void tmr2_interrupt_handler(void);
+void tmr4_interrupt_handler(void);
 void interrupt ISR(void);
 
 
