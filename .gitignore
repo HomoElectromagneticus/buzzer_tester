@@ -1,10 +1,10 @@
 build/*
 debug/*
 dist/*
-nbprojects/private/*
-nbprojects/Makefile-*
-nbprojects/Package-*
-/nbproject/private/
+nbproject/private/*
+nbproject/Makefile-*
+nbproject/Package-*
+nbproject/private/
 scratchpad.txt
 *.ods
 
